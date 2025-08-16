@@ -46,6 +46,16 @@ Sistema web para controle e organização de estudos para concursos públicos.
    - Dados mantidos entre sessões
    - Sistema de backup e restauração completo
 
+## 📚 Documentação
+
+Este projeto possui documentação completa disponível no Wiki do repositório:
+
+- 📋 **[Requisitos Funcionais](../../wiki/Requisitos-Funcionais)** - Especificação detalhada dos 7 requisitos que basearam o desenvolvimento
+- 🎯 **[Épicos e User Stories](../../wiki/Épicos-e-User-Stories)** - Histórias de usuário organizadas por épicos funcionais  
+- ✅ **[Critérios de Aceite](../../wiki/Critérios-de-Aceite)** - Critérios de validação para cada funcionalidade implementada
+
+> 💡 **Nota**: Esta documentação faz parte do portfólio de análise de sistemas e demonstra o processo completo de levantamento de requisitos, análise e especificação de funcionalidades.
+
 ## Como Usar
 
 ### 1. Abrindo a Aplicação
@@ -174,11 +184,27 @@ C:\sistema-estudos\
 - ✅ Backup pode ser armazenado onde você quiser
 - ✅ Arquivo JSON pode ser aberto em qualquer editor de texto
 
-## Suporte
+## 🎯 Projeto de Portfólio
 
-Este é um projeto de portfólio pessoal. A aplicação roda completamente offline e não requer configuração adicional.
+Este é um **projeto de portfólio profissional** que demonstra habilidades em:
+
+- **📋 Análise de Requisitos** - Levantamento e especificação de necessidades funcionais
+- **🎯 Gestão de Produto** - Épicos, User Stories e Critérios de Aceite
+- **💻 Desenvolvimento Frontend** - HTML5, CSS3, JavaScript ES6+
+- **📱 Design Responsivo** - Interface adaptável para múltiplos dispositivos
+- **🔄 Versionamento** - Git Flow e estratégias de branching
+- **📚 Documentação Técnica** - Especificações detalhadas e guias de uso
+
+### 🚀 Características do Projeto
+
+- ✅ **Sistema completamente funcional** - Aplicação web real e utilizável
+- ✅ **Documentação profissional** - Requisitos, US e critérios completos
+- ✅ **Código limpo e organizado** - Boas práticas de desenvolvimento
+- ✅ **Responsividade total** - Funciona em desktop e mobile
+- ✅ **Sem dependências externas** - Roda offline, sem APIs ou banco de dados
 
 ---
 
-**Data de criação**: Agosto 2025  
-**Versão**: 1.0
+**📅 Data de criação**: Agosto 2025  
+**🔢 Versão**: 1.0  
+**👨‍💻 Desenvolvido por**: [Ana Cláudia Coelho](https://github.com/acnscoelho)
