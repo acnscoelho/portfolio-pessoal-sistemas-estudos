@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Controle de Estudos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 30px;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 30px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: #4facfe;
+            border-bottom-color: #4facfe;
+            font-weight: bold;
+        }
+
+        .tab:hover {
+            background: #f5f5f5;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #4facfe;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
+        .subject-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #4facfe;
+            transition: transform 0.3s ease;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .subject-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .subject-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .difficulty-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .difficulty-facil {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .difficulty-medio {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .difficulty-dificil {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .subject-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .info-item {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .info-label {
+            font-size: 0.8rem;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-top: 5px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            transition: width 0.3s ease;
+        }
+
+        .topics-list {
+            margin-top: 15px;
+        }
+
+        .topic-item {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .topic-checkbox {
+            margin-right: 10px;
+        }
+
+        .topic-text {
+            flex: 1;
+        }
+
+        .topic-text.completed {
+            text-decoration: line-through;
+            color: #666;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .day-column {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 200px;
+        }
+
+        .day-header {
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+            color: #333;
+            border-bottom: 2px solid #4facfe;
+            padding-bottom: 5px;
+        }
+
+        .study-block {
+            background: white;
+            padding: 8px;
+            border-radius: 5px;
+            margin-bottom: 8px;
+            border-left: 3px solid #4facfe;
+            font-size: 0.9rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: black;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .schedule-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab {
+                flex: 1 1 50%;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .subject-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Sistema de Controle de Estudos</h1>
+            <p>Organize seus estudos para concursos de forma inteligente</p>
+            <p style="font-size: 0.9rem; margin-top: 10px; opacity: 0.8;">
+                📚 Sistema distribui automaticamente <strong>66.5 horas semanais</strong> entre suas matérias baseado na dificuldade
+            </p>
+        </div>
+
+        <div class="main-content">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('materias')">Matérias</button>
+                <button class="tab" onclick="showTab('cronograma')">Cronograma</button>
+                <button class="tab" onclick="showTab('progresso')">Progresso</button>
+                <button class="tab" onclick="showTab('backup')">Backup</button>
+            </div>
+
+            <!-- Aba de Matérias -->
+            <div id="materias" class="tab-content active">
+                <h2>Gerenciar Matérias</h2>
+                
+                <div class="form-group">
+                    <label for="subjectName">Nome da Matéria</label>
+                    <input type="text" id="subjectName" placeholder="Ex: Matemática">
+                </div>
+                
+                <div class="form-group">
+                    <label for="deadline">Prazo para Conclusão</label>
+                    <input type="date" id="deadline">
+                </div>
+                
+                <div class="form-group">
+                    <label for="difficulty">Dificuldade</label>
+                    <select id="difficulty">
+                        <option value="facil">Fácil</option>
+                        <option value="medio">Médio</option>
+                        <option value="dificil">Difícil</option>
+                    </select>
+                </div>
+                
+                <button class="btn btn-primary" onclick="addSubject()">Adicionar Matéria</button>
+
+                <div id="subjectsList" style="margin-top: 30px;"></div>
+            </div>
+
+            <!-- Aba de Cronograma -->
+            <div id="cronograma" class="tab-content">
+                <h2>Cronograma Semanal</h2>
+                <div id="scheduleContainer">
+                    <div class="schedule-grid" id="scheduleGrid"></div>
+                </div>
+            </div>
+
+            <!-- Aba de Progresso -->
+            <div id="progresso" class="tab-content">
+                <h2>Acompanhamento de Progresso</h2>
+                <div class="stats-grid" id="statsGrid"></div>
+                <div id="progressDetails"></div>
+            </div>
+
+            <!-- Aba de Backup -->
+            <div id="backup" class="tab-content">
+                <h2>Backup e Restauração</h2>
+                
+                <div style="margin-bottom: 30px;">
+                    <h3>📤 Fazer Backup</h3>
+                    <p style="color: #666; margin-bottom: 15px;">
+                        Faça o download de um arquivo com todos os seus dados para ter uma cópia de segurança.
+                    </p>
+                    <button class="btn btn-primary" onclick="exportData()">
+                        💾 Baixar Backup
+                    </button>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h3>📥 Restaurar Backup</h3>
+                    <p style="color: #666; margin-bottom: 15px;">
+                        Carregue um arquivo de backup para restaurar seus dados. 
+                        <strong style="color: #ff6b6b;">Atenção: Isso substituirá todos os dados atuais!</strong>
+                    </p>
+                    <div class="form-group">
+                        <input type="file" id="backupFile" accept=".json" style="margin-bottom: 10px;">
+                        <button class="btn btn-primary" onclick="importData()">
+                            📥 Restaurar Backup
+                        </button>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h3>🗑️ Limpar Dados</h3>
+                    <p style="color: #666; margin-bottom: 15px;">
+                        Remove todos os dados salvos da aplicação. Use com cuidado!
+                    </p>
+                    <button class="btn btn-danger" onclick="clearAllData()">
+                        🗑️ Limpar Todos os Dados
+                    </button>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; border-left: 5px solid #4facfe;">
+                    <h3>ℹ️ Informações sobre Backup</h3>
+                    <ul style="margin: 10px 0; padding-left: 20px; color: #666;">
+                        <li><strong>Formato:</strong> Arquivo JSON com extensão .json</li>
+                        <li><strong>Conteúdo:</strong> Todas as matérias, tópicos, configurações e progresso</li>
+                        <li><strong>Compatibilidade:</strong> Funciona entre diferentes navegadores e computadores</li>
+                        <li><strong>Segurança:</strong> Dados ficam apenas no seu computador</li>
+                        <li><strong>Recomendação:</strong> Faça backup regularmente, especialmente antes de limpar o navegador</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para adicionar tópicos -->
+    <div id="topicsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeTopicsModal()">&times;</span>
+            <h3>Adicionar Tópicos de Estudo</h3>
+            <div class="form-group">
+                <label for="topicName">Nome do Tópico</label>
+                <input type="text" id="topicName" placeholder="Ex: Álgebra Linear">
+            </div>
+            <button class="btn btn-primary" onclick="addTopic()">Adicionar Tópico</button>
+            <div id="currentTopics" style="margin-top: 20px;"></div>
+        </div>
+    </div>
+
+    <!-- Modal para selecionar dias da semana -->
+    <div id="daysModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDaysModal()">&times;</span>
+            <h3>Selecionar Dias de Estudo</h3>
+            <p style="margin-bottom: 20px; color: #666;">Selecione os dias da semana que deseja estudar esta matéria:</p>
+            <div id="daysSelection" style="margin-bottom: 20px;">
+                <div class="topic-item">
+                    <input type="checkbox" id="day-segunda" value="segunda">
+                    <label for="day-segunda">Segunda-feira</label>
+                </div>
+                <div class="topic-item">
+                    <input type="checkbox" id="day-terca" value="terca">
+                    <label for="day-terca">Terça-feira</label>
+                </div>
+                <div class="topic-item">
+                    <input type="checkbox" id="day-quarta" value="quarta">
+                    <label for="day-quarta">Quarta-feira</label>
+                </div>
+                <div class="topic-item">
+                    <input type="checkbox" id="day-quinta" value="quinta">
+                    <label for="day-quinta">Quinta-feira</label>
+                </div>
+                <div class="topic-item">
+                    <input type="checkbox" id="day-sexta" value="sexta">
+                    <label for="day-sexta">Sexta-feira</label>
+                </div>
+                <div class="topic-item">
+                    <input type="checkbox" id="day-sabado" value="sabado">
+                    <label for="day-sabado">Sábado</label>
+                </div>
+                <div class="topic-item">
+                    <input type="checkbox" id="day-domingo" value="domingo">
+                    <label for="day-domingo">Domingo</label>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="saveDaysSelection()">Salvar Dias</button>
+        </div>
+    </div>
+
+    <script>
+        // Dados em memória
+        let subjects = JSON.parse(localStorage.getItem('studySubjects')) || [];
+        let currentSubjectId = null;
+
+        // Configurações de peso por dificuldade para distribuição das 66.5h semanais
+        const difficultyWeights = {
+            'facil': 1,      // Peso 1
+            'medio': 1.5,    // Peso 1.5
+            'dificil': 2     // Peso 2
+        };
+        
+        const TOTAL_WEEKLY_HOURS = 66.5; // Total de horas semanais disponíveis
+
+        // Função para salvar dados no localStorage
+        function saveData() {
+            localStorage.setItem('studySubjects', JSON.stringify(subjects));
+        }
+
+        // Função para mostrar abas
+        function showTab(tabName) {
+            // Remover classe active de todas as abas
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Adicionar classe active na aba clicada
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+            
+            // Atualizar conteúdo específico da aba
+            if (tabName === 'cronograma') {
+                generateSchedule();
+            } else if (tabName === 'progresso') {
+                updateProgress();
+            }
+        }
+
+        // Função para adicionar matéria
+        function addSubject() {
+            const name = document.getElementById('subjectName').value;
+            const deadline = document.getElementById('deadline').value;
+            const difficulty = document.getElementById('difficulty').value;
+
+            if (!name || !deadline) {
+                alert('Por favor, preencha todos os campos obrigatórios!');
+                return;
+            }
+
+            const subject = {
+                id: Date.now(),
+                name: name,
+                deadline: deadline,
+                difficulty: difficulty,
+                topics: [],
+                studyDays: ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'], // Todos os dias por padrão
+                createdAt: new Date().toISOString()
+            };
+
+            subjects.push(subject);
+            saveData();
+            displaySubjects();
+            
+            // Limpar formulário
+            document.getElementById('subjectName').value = '';
+            document.getElementById('deadline').value = '';
+            document.getElementById('difficulty').value = 'facil';
+        }
+
+        // Função para calcular horas de estudo distribuindo 66.5h semanais
+        function calculateStudyHours(subject) {
+            const deadlineDate = new Date(subject.deadline);
+            const currentDate = new Date();
+            const daysRemaining = Math.ceil((deadlineDate - currentDate) / (1000 * 60 * 60 * 24));
+            
+            if (daysRemaining <= 0) return { dailyHours: 0, weeklyHours: 0, daysRemaining: 0, studyDaysCount: 0 };
+            
+            // Garantir que studyDays existe (para compatibilidade com dados antigos)
+            if (!subject.studyDays || subject.studyDays.length === 0) {
+                subject.studyDays = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'];
+            }
+            
+            // Filtrar apenas matérias com prazo válido (não vencidas)
+            const activeSubjects = subjects.filter(s => {
+                const subjectDeadline = new Date(s.deadline);
+                const currentDate = new Date();
+                const subjectDaysRemaining = Math.ceil((subjectDeadline - currentDate) / (1000 * 60 * 60 * 24));
+                return subjectDaysRemaining > 0;
+            });
+            
+            if (activeSubjects.length === 0) {
+                return { dailyHours: 0, weeklyHours: 0, daysRemaining: daysRemaining, studyDaysCount: subject.studyDays.length };
+            }
+            
+            // Calcular peso total de todas as matérias ativas considerando dias de estudo
+            const totalWeight = activeSubjects.reduce((sum, s) => {
+                const subjectStudyDays = s.studyDays || ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'];
+                return sum + (difficultyWeights[s.difficulty] * subjectStudyDays.length);
+            }, 0);
+            
+            // Calcular horas semanais desta matéria baseado no seu peso e dias de estudo
+            const subjectWeight = difficultyWeights[subject.difficulty] * subject.studyDays.length;
+            const weeklyHours = Math.round(((subjectWeight / totalWeight) * TOTAL_WEEKLY_HOURS) * 10) / 10;
+            const dailyHours = subject.studyDays.length > 0 ? Math.round((weeklyHours / subject.studyDays.length) * 10) / 10 : 0;
+            
+            return {
+                dailyHours: dailyHours,
+                weeklyHours: weeklyHours,
+                daysRemaining: daysRemaining,
+                studyDaysCount: subject.studyDays.length
+            };
+        }
+
+        // Função para calcular progresso
+        function calculateProgress(subject) {
+            if (!subject.topics || subject.topics.length === 0) return 0;
+            const completedTopics = subject.topics.filter(topic => topic.completed).length;
+            return Math.round((completedTopics / subject.topics.length) * 100);
+        }
+
+        // Função para exibir matérias
+        function displaySubjects() {
+            const container = document.getElementById('subjectsList');
+            container.innerHTML = '';
+
+            if (subjects.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666; margin-top: 20px;">Nenhuma matéria cadastrada ainda. Adicione sua primeira matéria acima!</p>';
+                return;
+            }
+
+            subjects.forEach(subject => {
+                const studyHours = calculateStudyHours(subject);
+                const progress = calculateProgress(subject);
+                
+                const subjectCard = document.createElement('div');
+                subjectCard.className = 'subject-card';
+                subjectCard.innerHTML = `
+                    <div class="subject-header">
+                        <div class="subject-title">${subject.name}</div>
+                        <div class="button-group">
+                            <span class="difficulty-badge difficulty-${subject.difficulty}">${subject.difficulty}</span>
+                            <button class="btn btn-danger btn-small" onclick="deleteSubject(${subject.id})">Excluir</button>
+                        </div>
+                    </div>
+                    
+                    <div class="subject-info">
+                        <div class="info-item">
+                            <div class="info-label">Prazo</div>
+                            <div class="info-value">${new Date(subject.deadline).toLocaleDateString('pt-BR')}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Dias Restantes</div>
+                            <div class="info-value">${studyHours.daysRemaining}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Horas/Dia</div>
+                            <div class="info-value">${studyHours.dailyHours}h</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Horas/Semana</div>
+                            <div class="info-value">${studyHours.weeklyHours}h</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Dias de Estudo</div>
+                            <div class="info-value">${studyHours.studyDaysCount}/7 dias</div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${progress}%"></div>
+                    </div>
+                    <div style="text-align: center; margin-top: 5px; font-weight: bold;">${progress}% Concluído</div>
+                    
+                    <div style="margin-top: 15px;" class="button-group">
+                        <button class="btn btn-primary btn-small" onclick="openTopicsModal(${subject.id})">Gerenciar Tópicos</button>
+                        <button class="btn btn-primary btn-small" onclick="changeDifficulty(${subject.id})">Alterar Dificuldade</button>
+                        <button class="btn btn-primary btn-small" onclick="openDaysModal(${subject.id})">Dias da Semana</button>
+                    </div>
+                    
+                    <div class="topics-list">
+                        ${subject.topics && subject.topics.length > 0 ? subject.topics.map(topic => `
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" ${topic.completed ? 'checked' : ''} 
+                                       onchange="toggleTopic(${subject.id}, ${topic.id})">
+                                <span class="topic-text ${topic.completed ? 'completed' : ''}">${topic.name}</span>
+                            </div>
+                        `).join('') : '<p style="color: #666; margin-top: 10px; text-align: center;">Nenhum tópico adicionado ainda.</p>'}
+                    </div>
+                `;
+                
+                container.appendChild(subjectCard);
+            });
+        }
+
+        // Função para excluir matéria
+        function deleteSubject(subjectId) {
+            if (confirm('Tem certeza que deseja excluir esta matéria?')) {
+                subjects = subjects.filter(subject => subject.id !== subjectId);
+                saveData();
+                displaySubjects();
+            }
+        }
+
+        // Função para alterar dificuldade
+        function changeDifficulty(subjectId) {
+            const subject = subjects.find(s => s.id === subjectId);
+            const newDifficulty = prompt('Nova dificuldade (facil/medio/dificil):', subject.difficulty);
+            
+            if (newDifficulty && ['facil', 'medio', 'dificil'].includes(newDifficulty)) {
+                subject.difficulty = newDifficulty;
+                saveData();
+                displaySubjects();
+            } else if (newDifficulty !== null) {
+                alert('Dificuldade inválida! Use: facil, medio ou dificil');
+            }
+        }
+
+        // Função para abrir modal de tópicos
+        function openTopicsModal(subjectId) {
+            currentSubjectId = subjectId;
+            const subject = subjects.find(s => s.id === subjectId);
+            document.getElementById('topicsModal').style.display = 'block';
+            displayCurrentTopics();
+        }
+
+        // Função para fechar modal de tópicos
+        function closeTopicsModal() {
+            document.getElementById('topicsModal').style.display = 'none';
+            currentSubjectId = null;
+            document.getElementById('topicName').value = '';
+        }
+
+        // Função para adicionar tópico
+        function addTopic() {
+            const topicName = document.getElementById('topicName').value;
+            if (!topicName || !currentSubjectId) {
+                alert('Por favor, digite o nome do tópico!');
+                return;
+            }
+            
+            const subject = subjects.find(s => s.id === currentSubjectId);
+            const topic = {
+                id: Date.now(),
+                name: topicName,
+                completed: false
+            };
+            
+            if (!subject.topics) subject.topics = [];
+            subject.topics.push(topic);
+            
+            saveData();
+            displayCurrentTopics();
+            displaySubjects();
+            
+            document.getElementById('topicName').value = '';
+        }
+
+        // Função para exibir tópicos atuais no modal
+        function displayCurrentTopics() {
+            const subject = subjects.find(s => s.id === currentSubjectId);
+            const container = document.getElementById('currentTopics');
+            
+            if (!subject || !subject.topics || subject.topics.length === 0) {
+                container.innerHTML = '<p>Nenhum tópico adicionado ainda.</p>';
+                return;
+            }
+            
+            container.innerHTML = subject.topics.map(topic => `
+                <div class="topic-item">
+                    <input type="checkbox" class="topic-checkbox" ${topic.completed ? 'checked' : ''} 
+                           onchange="toggleTopic(${subject.id}, ${topic.id})">
+                    <span class="topic-text ${topic.completed ? 'completed' : ''}">${topic.name}</span>
+                    <button class="btn btn-danger btn-small" onclick="deleteTopic(${subject.id}, ${topic.id})" style="margin-left: auto;">Excluir</button>
+                </div>
+            `).join('');
+        }
+
+        // Função para marcar/desmarcar tópico
+        function toggleTopic(subjectId, topicId) {
+            const subject = subjects.find(s => s.id === subjectId);
+            const topic = subject.topics.find(t => t.id === topicId);
+            topic.completed = !topic.completed;
+            
+            saveData();
+            displaySubjects();
+            if (currentSubjectId === subjectId) {
+                displayCurrentTopics();
+            }
+        }
+
+        // Função para excluir tópico
+        function deleteTopic(subjectId, topicId) {
+            if (confirm('Tem certeza que deseja excluir este tópico?')) {
+                const subject = subjects.find(s => s.id === subjectId);
+                subject.topics = subject.topics.filter(t => t.id !== topicId);
+                
+                saveData();
+                displaySubjects();
+                displayCurrentTopics();
+            }
+        }
+
+        // Função para gerar cronograma
+        function generateSchedule() {
+            const days = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'];
+            const dayKeys = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'];
+            const scheduleGrid = document.getElementById('scheduleGrid');
+            scheduleGrid.innerHTML = '';
+
+            if (subjects.length === 0) {
+                scheduleGrid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: #666; padding: 20px;">Adicione matérias para visualizar o cronograma!</div>';
+                return;
+            }
+
+            days.forEach((day, index) => {
+                const dayKey = dayKeys[index];
+                const dayColumn = document.createElement('div');
+                dayColumn.className = 'day-column';
+                dayColumn.innerHTML = `<div class="day-header">${day}</div>`;
+                
+                let hasStudies = false;
+                subjects.forEach(subject => {
+                    // Garantir que studyDays existe
+                    if (!subject.studyDays) {
+                        subject.studyDays = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'];
+                    }
+                    
+                    const studyHours = calculateStudyHours(subject);
+                    // Verificar se a matéria é estudada neste dia específico
+                    if (studyHours.dailyHours > 0 && subject.studyDays.includes(dayKey)) {
+                        hasStudies = true;
+                        const studyBlock = document.createElement('div');
+                        studyBlock.className = 'study-block';
+                        studyBlock.innerHTML = `
+                            <strong>${subject.name}</strong><br>
+                            ${studyHours.dailyHours}h - ${subject.difficulty}
+                        `;
+                        dayColumn.appendChild(studyBlock);
+                    }
+                });
+
+                if (!hasStudies) {
+                    const emptyBlock = document.createElement('div');
+                    emptyBlock.style.color = '#999';
+                    emptyBlock.style.fontStyle = 'italic';
+                    emptyBlock.style.textAlign = 'center';
+                    emptyBlock.style.padding = '20px';
+                    emptyBlock.textContent = 'Livre';
+                    dayColumn.appendChild(emptyBlock);
+                }
+                
+                scheduleGrid.appendChild(dayColumn);
+            });
+        }
+
+        // Função para atualizar progresso
+        function updateProgress() {
+            const statsGrid = document.getElementById('statsGrid');
+            const progressDetails = document.getElementById('progressDetails');
+            
+            // Calcular estatísticas gerais
+            const totalSubjects = subjects.length;
+            const completedSubjects = subjects.filter(s => calculateProgress(s) === 100).length;
+            const averageProgress = subjects.length > 0 ? 
+                Math.round(subjects.reduce((acc, s) => acc + calculateProgress(s), 0) / subjects.length) : 0;
+            
+            // Filtrar apenas matérias ativas para o cálculo de horas
+            const activeSubjects = subjects.filter(s => {
+                const deadlineDate = new Date(s.deadline);
+                const currentDate = new Date();
+                const daysRemaining = Math.ceil((deadlineDate - currentDate) / (1000 * 60 * 60 * 24));
+                return daysRemaining > 0;
+            });
+            
+            const totalStudyHours = activeSubjects.length > 0 ? TOTAL_WEEKLY_HOURS : 0;
+
+            statsGrid.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${totalSubjects}</div>
+                    <div class="stat-label">Total de Matérias</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${completedSubjects}</div>
+                    <div class="stat-label">Matérias Concluídas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${averageProgress}%</div>
+                    <div class="stat-label">Progresso Médio</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${totalStudyHours}h</div>
+                    <div class="stat-label">Horas/Semana Total</div>
+                </div>
+            `;
+
+            // Exibir detalhes por matéria
+            if (subjects.length === 0) {
+                progressDetails.innerHTML = `
+                    <h3>Progresso por Matéria</h3>
+                    <p style="text-align: center; color: #666; margin-top: 20px;">Nenhuma matéria cadastrada ainda.</p>
+                `;
+            } else {
+                progressDetails.innerHTML = `
+                    <h3>Progresso por Matéria</h3>
+                    ${subjects.map(subject => {
+                        const progress = calculateProgress(subject);
+                        const studyHours = calculateStudyHours(subject);
+                        return `
+                            <div class="subject-card">
+                                <div class="subject-header">
+                                    <div class="subject-title">${subject.name}</div>
+                                    <span class="difficulty-badge difficulty-${subject.difficulty}">${subject.difficulty}</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: ${progress}%"></div>
+                                </div>
+                                <div style="text-align: center; margin-top: 5px;">
+                                    ${progress}% concluído - ${studyHours.daysRemaining} dias restantes
+                                    ${subject.topics ? ` - ${subject.topics.filter(t => t.completed).length}/${subject.topics.length} tópicos` : ' - 0 tópicos'}
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                `;
+            }
+        }
+
+        // Função para abrir modal de dias da semana
+        function openDaysModal(subjectId) {
+            currentSubjectId = subjectId;
+            const subject = subjects.find(s => s.id === subjectId);
+            
+            // Garantir que studyDays existe
+            if (!subject.studyDays) {
+                subject.studyDays = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'];
+            }
+            
+            // Marcar dias selecionados
+            const days = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'];
+            days.forEach(day => {
+                const checkbox = document.getElementById(`day-${day}`);
+                checkbox.checked = subject.studyDays.includes(day);
+            });
+            
+            document.getElementById('daysModal').style.display = 'block';
+        }
+
+        // Função para fechar modal de dias da semana
+        function closeDaysModal() {
+            document.getElementById('daysModal').style.display = 'none';
+            currentSubjectId = null;
+        }
+
+        // Função para salvar seleção de dias
+        function saveDaysSelection() {
+            if (!currentSubjectId) return;
+            
+            const subject = subjects.find(s => s.id === currentSubjectId);
+            const days = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'];
+            const selectedDays = [];
+            
+            days.forEach(day => {
+                const checkbox = document.getElementById(`day-${day}`);
+                if (checkbox.checked) {
+                    selectedDays.push(day);
+                }
+            });
+            
+            if (selectedDays.length === 0) {
+                alert('Selecione pelo menos um dia da semana!');
+                return;
+            }
+            
+            subject.studyDays = selectedDays;
+            saveData();
+            displaySubjects();
+            closeDaysModal();
+        }
+
+        // Função para exportar dados (fazer backup)
+        function exportData() {
+            try {
+                const data = {
+                    subjects: subjects,
+                    exportDate: new Date().toISOString(),
+                    version: "1.0",
+                    systemInfo: "Sistema de Controle de Estudos"
+                };
+                
+                const jsonString = JSON.stringify(data, null, 2);
+                const blob = new Blob([jsonString], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `backup-estudos-${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                
+                alert('✅ Backup criado com sucesso!\nO arquivo foi baixado para sua pasta de Downloads.');
+            } catch (error) {
+                alert('❌ Erro ao criar backup: ' + error.message);
+            }
+        }
+
+        // Função para importar dados (restaurar backup)
+        function importData() {
+            const fileInput = document.getElementById('backupFile');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                alert('⚠️ Por favor, selecione um arquivo de backup primeiro!');
+                return;
+            }
+            
+            if (!file.name.endsWith('.json')) {
+                alert('❌ Por favor, selecione um arquivo JSON válido!');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const backup = JSON.parse(e.target.result);
+                    
+                    // Validar estrutura do backup
+                    if (!backup.subjects || !Array.isArray(backup.subjects)) {
+                        throw new Error('Formato de backup inválido');
+                    }
+                    
+                    // Confirmar substituição
+                    const confirmRestore = confirm(
+                        '⚠️ ATENÇÃO!\n\n' +
+                        'Esta ação irá SUBSTITUIR todos os seus dados atuais pelos dados do backup.\n\n' +
+                        `Backup criado em: ${backup.exportDate ? new Date(backup.exportDate).toLocaleString('pt-BR') : 'Data não disponível'}\n` +
+                        `Matérias no backup: ${backup.subjects.length}\n\n` +
+                        'Deseja continuar?'
+                    );
+                    
+                    if (!confirmRestore) {
+                        return;
+                    }
+                    
+                    // Restaurar dados
+                    subjects = backup.subjects;
+                    saveData();
+                    displaySubjects();
+                    
+                    // Limpar input
+                    fileInput.value = '';
+                    
+                    alert(`✅ Backup restaurado com sucesso!\n\n${backup.subjects.length} matérias foram carregadas.`);
+                    
+                    // Voltar para aba de matérias
+                    showTab('materias');
+                    
+                } catch (error) {
+                    alert('❌ Erro ao restaurar backup: ' + error.message + '\n\nVerifique se o arquivo é um backup válido.');
+                }
+            };
+            
+            reader.readAsText(file);
+        }
+
+        // Função para limpar todos os dados
+        function clearAllData() {
+            const confirmClear = confirm(
+                '🗑️ ATENÇÃO - AÇÃO IRREVERSÍVEL!\n\n' +
+                'Esta ação irá DELETAR PERMANENTEMENTE todos os seus dados:\n' +
+                '• Todas as matérias cadastradas\n' +
+                '• Todos os tópicos criados\n' +
+                '• Todo o progresso registrado\n' +
+                '• Todas as configurações\n\n' +
+                'Esta ação NÃO PODE ser desfeita!\n\n' +
+                'Deseja continuar?'
+            );
+            
+            if (!confirmClear) {
+                return;
+            }
+            
+            const doubleConfirm = confirm(
+                '⚠️ ÚLTIMA CONFIRMAÇÃO!\n\n' +
+                'Tem CERTEZA ABSOLUTA que deseja deletar todos os dados?\n\n' +
+                'Clique OK para DELETAR TUDO ou Cancelar para manter os dados.'
+            );
+            
+            if (doubleConfirm) {
+                // Limpar dados
+                subjects = [];
+                localStorage.removeItem('studySubjects');
+                displaySubjects();
+                
+                alert('✅ Todos os dados foram removidos com sucesso!\n\nVocê pode começar do zero ou restaurar um backup.');
+                
+                // Voltar para aba de matérias
+                showTab('materias');
+            }
+        }
+
+        // Função para fechar modal ao clicar fora
+        window.onclick = function(event) {
+            const topicsModal = document.getElementById('topicsModal');
+            const daysModal = document.getElementById('daysModal');
+            
+            if (event.target === topicsModal) {
+                closeTopicsModal();
+            } else if (event.target === daysModal) {
+                closeDaysModal();
+            }
+        }
+
+        // Adicionar evento Enter nos campos de input
+        document.addEventListener('DOMContentLoaded', function() {
+            displaySubjects();
+            
+            // Definir data mínima como hoje
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('deadline').min = today;
+
+            // Adicionar eventos Enter
+            document.getElementById('subjectName').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') addSubject();
+            });
+
+            document.getElementById('topicName').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') addTopic();
+            });
+        });
+    </script>
+</body>
+</html>
