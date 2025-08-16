@@ -50,7 +50,7 @@ Sistema web para controle e organização de estudos para concursos públicos.
 
 Este projeto possui documentação completa disponível no Wiki do repositório:
 
-- 📋 **[Requisitos Funcionais](../../wiki/1.Requisitos-Funcionais)** - Especificação detalhada dos 7 requisitos que basearam o desenvolvimento
+- 📋 **[Requisitos Funcionais](https://github.com/acnscoelho/portfolio-pessoal-sistemas-estudos/wiki/1.Requisitos-Funcionais)** - Especificação detalhada dos 7 requisitos que basearam o desenvolvimento
 - 🎯 **[Épicos e User Stories](../../wiki/2.Épicos-e-User-Stories)** - Histórias de usuário organizadas por épicos funcionais  
 - ✅ **[Critérios de Aceite](../../wiki/3.Critérios-de-Aceite)** - Critérios de validação para cada funcionalidade implementada
 
