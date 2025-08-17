@@ -53,6 +53,7 @@ Este projeto possui documentação completa disponível no Wiki do repositório:
 - 📋 **[Requisitos Funcionais](https://github.com/acnscoelho/portfolio-pessoal-sistemas-estudos/wiki/1.Requisitos-Funcionais)** - Especificação detalhada dos 7 requisitos que basearam o desenvolvimento
 - 🎯 **[Épicos e User Stories](https://github.com/acnscoelho/portfolio-pessoal-sistemas-estudos/wiki/2.Épicos-e-User-Stories)** - Histórias de usuário organizadas por épicos funcionais  
 - ✅ **[Critérios de Aceite](https://github.com/acnscoelho/portfolio-pessoal-sistemas-estudos/wiki/3.Critérios-de-Aceite)** - Critérios de validação para cada funcionalidade implementada
+- 📋 **[Requisitos Não Funcionais](https://github.com/acnscoelho/portfolio-pessoal-sistemas-estudos/wiki/4.Requisitos-Não-Funcionais)** - Especificação dos requisitos não funcionais
 
 > 💡 **Nota**: Esta documentação faz parte do portfólio de análise de sistemas e demonstra o processo completo de levantamento de requisitos, análise e especificação de funcionalidades.
 
