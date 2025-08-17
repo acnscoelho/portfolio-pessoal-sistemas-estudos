@@ -57,6 +57,19 @@ Este projeto possui documentação completa disponível no Wiki do repositório:
 
 > 💡 **Nota**: Esta documentação faz parte do portfólio de análise de sistemas e demonstra o processo completo de levantamento de requisitos, análise e especificação de funcionalidades.
 
+## 🐛 Bugs Identificados
+
+Durante os testes do sistema, foram identificados alguns bugs que estão **documentados e rastreados** no GitHub Issues:
+
+- 🔗 **[Visualizar Bugs Reportados](https://github.com/acnscoelho/portfolio-pessoal-sistemas-estudos/issues)** - Lista completa de bugs identificados durante os testes
+
+### Principais Issues Identificadas:
+- **Issue #7**: Mensagem de erro ao restaurar backup (funcionalidade funciona, mas exibe erro)
+- **Issue #6**: Cronograma mostra quantidade incorreta de matérias
+- **Issue #5**: Sistema aceita datas inválidas no prazo de conclusão
+
+> 📋 **Nota**: Esta seção demonstra o processo de **identificação, documentação e rastreamento de defeitos** como parte do portfólio de testes.
+
 ## Como Usar
 
 ### 1. Abrindo a Aplicação
