@@ -61,7 +61,7 @@ Este projeto possui documentação completa disponível no Wiki do repositório:
 
 O projeto inclui documentação completa de **planos e casos de teste** na pasta `documentos/`:
 
-- 📄 **[Plano e Estratégia de Testes](./documentos/Plano%20e%20Estratégia%20de%20Testes%20Adaptada_Plano_de_teste.docx)** - Estratégia de testes adaptada para o sistema
+- 📄 **[Plano e Estratégia de Testes](https://github.com/acnscoelho/portfolio-pessoal-sistemas-estudos/blob/feature/initial-setup/documentos/Caso%20de%20Teste%20Funcional.docx)** - Estratégia de testes adaptada para o sistema
 - 🧪 **[Casos de Teste Funcionais](./documentos/Caso%20de%20Teste%20Funcional.docx)** - Casos de teste baseados nos 7 requisitos funcionais
 - ⚡ **[Casos de Teste Não Funcionais](./documentos/Caso%20de%20Teste%20Não%20Funcional.docx)** - Testes de performance, usabilidade, compatibilidade e acessibilidade
 
