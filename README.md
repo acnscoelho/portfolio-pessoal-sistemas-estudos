@@ -57,6 +57,16 @@ Este projeto possui documentação completa disponível no Wiki do repositório:
 
 > 💡 **Nota**: Esta documentação faz parte do portfólio de análise de sistemas e demonstra o processo completo de levantamento de requisitos, análise e especificação de funcionalidades.
 
+## 📋 Documentação de Testes
+
+O projeto inclui documentação completa de **planos e casos de teste** na pasta `documentos/`:
+
+- 📄 **[Plano e Estratégia de Testes](./documentos/Plano%20e%20Estratégia%20de%20Testes%20Adaptada_Plano_de_teste.docx)** - Estratégia de testes adaptada para o sistema
+- 🧪 **[Casos de Teste Funcionais](./documentos/Caso%20de%20Teste%20Funcional.docx)** - Casos de teste baseados nos 7 requisitos funcionais
+- ⚡ **[Casos de Teste Não Funcionais](./documentos/Caso%20de%20Teste%20Não%20Funcional.docx)** - Testes de performance, usabilidade, compatibilidade e acessibilidade
+
+> 📊 **Nota**: Estes documentos demonstram a aplicação prática de **técnicas de teste** e **estratégias de validação** seguindo metodologias profissionais de QA.
+
 ## 🐛 Bugs Identificados
 
 Durante os testes do sistema, foram identificados alguns bugs que estão **documentados e rastreados** no GitHub Issues:
@@ -69,6 +79,39 @@ Durante os testes do sistema, foram identificados alguns bugs que estão **docum
 - **Issue #5**: Sistema aceita datas inválidas no prazo de conclusão
 
 > 📋 **Nota**: Esta seção demonstra o processo de **identificação, documentação e rastreamento de defeitos** como parte do portfólio de testes.
+
+## 🎬 Demonstrações de Testes Não Funcionais
+
+### 📱 **RNF02 - Responsividade**
+📹 **[Assistir: Teste de Responsividade](https://github.com/acnscoelho/portfolio-pessoal-sistemas-estudos/releases/download/v1.0-videos/responsividade.mp4)**
+
+**Demonstrado:**
+- ✅ Adaptação automática para diferentes tamanhos de tela
+- ✅ Layout responsivo mantendo funcionalidade completa
+
+---
+
+### 🌐 **RNF03 - Compatibilidade de Navegadores** 
+📹 **[Assistir: Teste de Compatibilidade](https://github.com/acnscoelho/portfolio-pessoal-sistemas-estudos/releases/download/v1.0-videos/compatibilidade.mp4)**
+
+**Navegadores Testados:**
+- ✅ **Chrome**
+- ✅ **Firefox** 
+- ✅ **Edge**
+- ✅ **Safari**
+
+---
+
+### ♿ **RNF07 - Acessibilidade**
+📹 **[Assistir: Teste de Acessibilidade](https://github.com/acnscoelho/portfolio-pessoal-sistemas-estudos/releases/download/v1.0-videos/acessibilidade.mp4)**
+
+**Funcionalidades Testadas:**
+- ✅ **Navegação por teclado** (Tab para navegar entre elementos)
+- ✅ **Tecla Enter** para confirmar ações e adicionar matérias
+
+---
+
+> 📹 **Nota**: Vídeos demonstram execução prática dos **Requisitos Não Funcionais** especificados na [documentação de testes](https://github.com/acnscoelho/portfolio-pessoal-sistemas-estudos/wiki/4.Requisitos-Não-Funcionais).
 
 ## Como Usar
 
