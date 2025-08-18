@@ -196,8 +196,12 @@ O sistema distribui automaticamente **66.5 horas semanais** entre suas matérias
 
 ```
 C:\sistema-estudos\
-├── index.html          # Aplicação principal
-└── README.md           # Este arquivo
+├── documentos/
+│   ├── Caso de Teste Funcional.docx                    # Casos de teste funcionais
+│   ├── Caso de Teste Não Funcional.docx               # Casos de teste não funcionais  
+│   └── Plano e Estratégia de Testes Adaptada_Plano_de_teste.docx  # Plano de testes
+├── index.html                                          # Aplicação principal
+└── README.md                                           # Documentação do projeto
 ```
 
 ## Requisitos
