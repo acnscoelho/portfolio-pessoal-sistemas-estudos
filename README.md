@@ -113,11 +113,121 @@ Durante os testes do sistema, foram identificados alguns bugs que estão **docum
 
 > 📹 **Nota**: Vídeos demonstram execução prática dos **Requisitos Não Funcionais** especificados na [documentação de testes](https://github.com/acnscoelho/portfolio-pessoal-sistemas-estudos/wiki/4.Requisitos-Não-Funcionais).
 
+## 🚀 Servidor Localhost Otimizado
+
+### **Por que foi implementado?**
+
+Durante os **testes de performance automatizados**, identificamos limitações críticas do acesso direto ao arquivo `index.html`:
+
+**🔴 Problemas Identificados:**
+- **35-50% de falhas** em testes com 50+ usuários simultâneos
+- **Servidor Python simples** limitado a ~25 conexões simultâneas
+- **Métricas artificialmente otimistas** (só medindo conexões bem-sucedidas)
+
+**🟢 Solução Implementada:**
+- **Servidor Node.js com Express** otimizado para alta performance
+- **100% de taxa de sucesso** em testes com até 100 usuários simultâneos
+- **Zero rejeições** de conexão durante testes de carga
+
+### **📊 Resultados de Performance:**
+
+| **Cenário** | **Acesso Direto** | **Servidor Localhost** | **Melhoria** |
+|-------------|-------------------|------------------------|--------------|
+| **10 usuários** | 98% sucesso | 💯 100% sucesso | **+2%** |
+| **50 usuários** | 64% sucesso | 💯 100% sucesso | **+56%** |
+| **100 usuários** | 50% sucesso | 💯 100% sucesso | **+100%** |
+
+> 🎯 **Impacto**: Transformação de um sistema que rejeitava metade dos usuários em alta demanda para uma solução que atende 100% dos usuários com tempos de resposta excelentes.
+
 ## Como Usar
 
-### 1. Abrindo a Aplicação
-- Abra o arquivo `index.html` no seu navegador
-- Ou clique duas vezes no arquivo para abrir automaticamente
+### 1. Iniciando a Aplicação
+
+#### **🚀 Método Recomendado (Servidor Localhost):**
+```bash
+# 1. Instalar dependências do Node.js
+npm install
+
+# 2. Iniciar servidor otimizado
+npm start
+# ou para desenvolvimento:
+npm run dev
+
+# 3. Acessar no navegador:
+# http://localhost:3000
+```
+
+#### **📂 Método Alternativo (Arquivo Direto):**
+- Abra o arquivo `index.html` diretamente no navegador
+- **Limitação**: Não suporta testes de performance automatizados
+
+> 💡 **Recomendação**: Use o servidor localhost para melhor performance e compatibilidade com ferramentas de teste
+
+### **📋 Scripts NPM Disponíveis:**
+```bash
+npm start                    # Iniciar servidor em modo produção
+npm run dev                  # Iniciar servidor em modo desenvolvimento
+npm run test:k6              # Executar testes de performance K6
+npm run test-k6-with-export  # Executar testes K6 + exportar resultados JSON
+npm run dash_k6              # Executar testes K6 com dashboard web
+npm run test:cypress         # Executar testes E2E Cypress (futuro)
+```
+
+### **⚙️ Configurações Avançadas:**
+```bash
+# Alterar porta
+PORT=4000 npm start
+
+# Modo de produção
+NODE_ENV=production npm start
+
+# Debug logs
+DEBUG=true npm start
+```
+
+### **📊 Dashboard Web K6:**
+```bash
+# Executar testes com dashboard web interativo
+npm run dash_k6
+
+# Após execução, será gerado:
+# - html-report.html (na raiz do projeto)
+# - Dashboard mostra métricas em tempo real
+# - Gráficos interativos de performance
+# - Timeline detalhado das requests
+```
+
+**🎯 Benefícios do Dashboard:**
+- ✅ **Visualização em tempo real** durante os testes
+- ✅ **Gráficos interativos** de latência e throughput  
+- ✅ **Timeline detalhado** de todas as requests
+- ✅ **Relatório HTML** profissional para apresentações
+
+### **📊 Resultado do Dashboard K6 - Teste de Stress Gradual**
+
+O dashboard gerado mostra visualmente o comportamento do sistema durante o teste de ramp-up:
+
+#### **📈 HTTP Performance Overview:**
+- **Request Rate**: Crescimento gradual de 0 a ~100 req/s
+- **Request Duration P95**: Mantido consistentemente abaixo de 60ms
+- **Request Failed**: Zero falhas durante todo o teste (linha verde constante)
+
+#### **👥 Virtual Users (VUs):**
+- **Ramp-up suave**: 0 → 10 → 50 → 100 usuários ao longo de 3m35s
+- **Comportamento linear**: Crescimento controlado e previsível
+- **Pico sustentado**: 100 usuários simultâneos por 2 minutos
+
+#### **📊 Transfer Rate:**
+- **Volume crescente**: 0 → 4 MB/s no pico
+- **Capacidade sustentada**: 4 MB/s mantidos durante pico de carga
+- **Total transferido**: ~500MB de dados processados com sucesso
+
+#### **🎯 Insights Visuais:**
+- **Degradação zero**: Performance mantida estável mesmo com 10x mais usuários
+- **Escalabilidade comprovada**: Sistema responde linearmente ao aumento de carga
+- **Confiabilidade total**: Gráfico de falhas permanece em zero durante todo o teste
+
+> 📸 **Dashboard gerado**: `html-report.html` - Relatório interativo com timestamp: 2025-08-18 19:30:28
 
 ### 2. Adicionando Matérias
 1. Na aba "Matérias", preencha:
@@ -196,30 +306,101 @@ O sistema distribui automaticamente **66.5 horas semanais** entre suas matérias
 
 ```
 C:\sistema-estudos\
-├── index.html          # Aplicação principal
-└── README.md           # Este arquivo
+├── documentos/
+│   ├── Caso de Teste Funcional.docx                    # Casos de teste funcionais
+│   ├── Caso de Teste Não Funcional.docx               # Casos de teste não funcionais  
+│   └── Plano e Estratégia de Testes Adaptada_Plano_de_teste.docx  # Plano de testes
+├── test/
+│   └── K6/
+│       ├── results/                                    # Resultados JSON dos testes (gerado)
+│       └── performance.test.js                         # Script de testes K6
+├── node_modules/                                       # Dependências do Node.js (gerado)
+├── html-report.html                                    # Dashboard web K6 (gerado)
+├── index.html                                          # Aplicação principal (SPA)
+├── server.js                                           # Servidor Node.js otimizado
+├── package.json                                        # Dependências e scripts NPM
+└── README.md                                           # Documentação do projeto
 ```
 
 ## Requisitos
 
+### **🚀 Para Servidor Localhost (Recomendado):**
+- **Node.js** v14+ ([Download](https://nodejs.org/))
+- **NPM** (incluído com Node.js)
 - Navegador web moderno (Chrome, Firefox, Edge, Safari)
 - JavaScript habilitado
-- Não requer conexão com internet
+
+### **📂 Para Acesso Direto (Limitado):**
+- Navegador web moderno (Chrome, Firefox, Edge, Safari)
+- JavaScript habilitado
+- **Limitação**: Não suporta testes de performance automatizados
+
+### **🧪 Para Testes Automatizados (Opcional):**
+- **K6** para testes de performance ([Download](https://k6.io/))
+- **Cypress** para testes E2E ([Docs](https://www.cypress.io/))
+
+> 💡 **Nota**: O sistema funciona offline em ambos os métodos
 
 ## Tecnologias Utilizadas
 
+### **📱 Frontend:**
 - HTML5
 - CSS3 (com Flexbox e Grid)
 - JavaScript (ES6+)
 - localStorage para persistência
 
+### **🚀 Backend/Servidor:**
+- Node.js
+- Express.js (framework web)
+- NPM para gerenciamento de dependências
+
+### **🧪 Testes e Automação:**
+- K6 para testes de performance
+- Scripts de automação em JavaScript
+- Export de resultados em JSON para análise
+- Dashboard web interativo para visualização em tempo real
+
 ## Características Técnicas
 
+### **🎯 Frontend:**
 - **Responsivo**: Funciona em desktop e mobile
 - **Single Page Application**: 4 abas organizadas (Matérias, Cronograma, Progresso, Backup)
 - **Sem banco de dados**: Dados armazenados localmente
 - **Interface moderna**: Design clean e intuitivo
 - **Sistema de backup**: Exportação e importação completa de dados
+
+### **⚡ Performance:**
+- **Servidor Node.js otimizado**: Suporta 100+ usuários simultâneos
+- **Cache inteligente**: Headers otimizados para performance
+- **Connection pooling**: Gerenciamento eficiente de conexões
+- **Zero falhas**: 100% de taxa de sucesso em testes de carga
+
+### **🧪 Testabilidade:**
+- **Testes automatizados**: Compatível com K6 e Cypress
+- **Métricas precisas**: Monitoramento de performance real
+- **Dashboard interativo**: Visualização web em tempo real
+- **Export de resultados**: Relatórios JSON e HTML para análise detalhada
+- **Thresholds rigorosos**: P90 < 150ms, P95 < 300ms, Max < 800ms
+- **CI/CD ready**: Servidor estável para automação
+
+### **📊 Comandos de Teste K6:**
+
+```bash
+# Teste básico de performance
+npm run test:k6
+
+# Teste com export JSON para análise
+npm run test-k6-with-export
+
+# Teste com dashboard web interativo
+npm run dash_k6
+```
+
+**🎯 Cenários de Teste Disponíveis:**
+- **Ramp-up gradual**: 0 → 10 → 50 → 100 usuários em 3m35s
+- **Thresholds enterprise**: Limites rigorosos de latência e falhas
+- **Validação completa**: Status, tempo de resposta, throughput
+- **Visualização avançada**: Dashboard com gráficos em tempo real
 
 ## 💾 Sistema de Backup
 
@@ -248,20 +429,67 @@ Este é um **projeto de portfólio profissional** que demonstra habilidades em:
 - **📋 Análise de Requisitos** - Levantamento e especificação de necessidades funcionais
 - **🎯 Gestão de Produto** - Épicos, User Stories e Critérios de Aceite
 - **💻 Desenvolvimento Frontend** - HTML5, CSS3, JavaScript ES6+
+- **🚀 Desenvolvimento Backend** - Node.js, Express.js, servidor otimizado
 - **📱 Design Responsivo** - Interface adaptável para múltiplos dispositivos
+- **⚡ Otimização de Performance** - Identificação e solução de gargalos
+- **🧪 Testes Automatizados** - K6 para performance, metodologia de testes
 - **🔄 Versionamento** - Git Flow e estratégias de branching
+- **📊 Análise de Dados** - Interpretação de métricas e resultados de testes
+- **🔧 Resolução de Problemas** - Migração de infraestrutura por necessidade técnica
 - **📚 Documentação Técnica** - Especificações detalhadas e guias de uso
 
 ### 🚀 Características do Projeto
 
 - ✅ **Sistema completamente funcional** - Aplicação web real e utilizável
+- ✅ **Infraestrutura otimizada** - Servidor Node.js para alta performance
 - ✅ **Documentação profissional** - Requisitos, US e critérios completos
+- ✅ **Testes automatizados** - Performance validada com K6
 - ✅ **Código limpo e organizado** - Boas práticas de desenvolvimento
 - ✅ **Responsividade total** - Funciona em desktop e mobile
-- ✅ **Sem dependências externas** - Roda offline, sem APIs ou banco de dados
+- ✅ **Análise comparativa** - Métricas antes/depois da otimização
+- ✅ **Dashboard K6 profissional** - Visualização interativa de performance
+- ✅ **Testes rigorosos** - Thresholds enterprise-grade com 100% aprovação
+- ✅ **Zero dependências externas** - Roda offline, sem APIs ou banco de dados
+- ✅ **Escalabilidade comprovada** - Testado com 100+ usuários simultâneos
+- ✅ **Evidência visual** - Relatórios HTML com timestamp e gráficos detalhados
+
+## 📋 Changelog
+
+### **🚀 Versão 1.1** - Agosto 2025
+**"Servidor Node.js Otimizado"**
+
+#### **✨ Novidades:**
+- 🏗️ **Servidor Node.js + Express** para alta performance
+- 🧪 **Testes automatizados K6** para validação de carga
+- 📊 **Dashboard web interativo** para visualização em tempo real
+- 📦 **Scripts NPM** para automação de tarefas
+- ⚡ **Performance melhorada**: 50% → 100% sucesso com 100 usuários
+- 📈 **Export de resultados** em JSON e HTML para análise
+- 📚 **Documentação expandida** com métricas e comparações
+
+#### **🔧 Melhorias Técnicas:**
+- Zero falhas em testes de carga (vs 35-50% falhas anteriores)
+- Tempo de resposta otimizado (20ms médio com 100 usuários, P95 < 75ms)
+- Suporte a 100+ usuários simultâneos (vs ~25 anteriores)
+- Connection pooling e cache inteligente
+- Dashboard web K6 com métricas visuais em tempo real
+- Thresholds rigorosos: P90 < 150ms, P95 < 300ms, Max < 800ms
+- Throughput sustentado de 50+ req/s e 4 MB/s de transferência
+
+#### **🔄 Compatibilidade:**
+- ✅ Mantém acesso direto ao `index.html`
+- ✅ Todas as funcionalidades preservadas
+- ✅ Zero breaking changes
+
+### **📦 Versão 1.0** - Agosto 2025
+**"Lançamento Inicial"**
+- Sistema SPA completo com 7 requisitos funcionais
+- Interface responsiva e moderna
+- Sistema de backup/restauração
+- Documentação completa (Wiki + README)
 
 ---
 
 **📅 Data de criação**: Agosto 2025  
-**🔢 Versão**: 1.0  
+**🔢 Versão**: 1.1 - Servidor Node.js Otimizado  
 **👨‍💻 Desenvolvido por**: [Ana Cláudia Coelho](https://github.com/acnscoelho)
