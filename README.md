@@ -444,4 +444,4 @@ npm run dash_k6
 
 **📅 Data de criação**: Agosto 2025  
 **🔢 Versão**: 1.1 - Servidor Node.js Otimizado  
-**👨‍💻 Desenvolvido por**: [Ana Cláudia Coelho](https://github.com/acnscoelho)
+**👩‍💻 Desenvolvido por**: [Ana Cláudia Coelho](https://github.com/acnscoelho)
