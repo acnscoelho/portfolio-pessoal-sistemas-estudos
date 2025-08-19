@@ -55,7 +55,7 @@ Este projeto possui documentação completa disponível no Wiki do repositório:
 - ✅ **[Critérios de Aceite](https://github.com/acnscoelho/portfolio-pessoal-sistemas-estudos/wiki/3.Critérios-de-Aceite)** - Critérios de validação para cada funcionalidade implementada
 - 📋 **[Requisitos Não Funcionais](https://github.com/acnscoelho/portfolio-pessoal-sistemas-estudos/wiki/4.Requisitos-Não-Funcionais)** - Especificação dos requisitos não funcionais
 
-> 💡 **Nota**: Esta documentação faz parte do portfólio de análise de sistemas e demonstra o processo completo de levantamento de requisitos, análise e especificação de funcionalidades.
+> 💡 **Nota**: Esta documentação é referente análise de sistemas e demonstra o processo completo de levantamento de requisitos, análise e especificação de funcionalidades.
 
 ## 📋 Documentação de Testes
 
@@ -115,30 +115,6 @@ Durante os testes do sistema, foram identificados alguns bugs que estão **docum
 
 ## 🚀 Servidor Localhost Otimizado
 
-### **Por que foi implementado?**
-
-Durante os **testes de performance automatizados**, identificamos limitações críticas do acesso direto ao arquivo `index.html`:
-
-**🔴 Problemas Identificados:**
-- **35-50% de falhas** em testes com 50+ usuários simultâneos
-- **Servidor Python simples** limitado a ~25 conexões simultâneas
-- **Métricas artificialmente otimistas** (só medindo conexões bem-sucedidas)
-
-**🟢 Solução Implementada:**
-- **Servidor Node.js com Express** otimizado para alta performance
-- **100% de taxa de sucesso** em testes com até 100 usuários simultâneos
-- **Zero rejeições** de conexão durante testes de carga
-
-### **📊 Resultados de Performance:**
-
-| **Cenário** | **Acesso Direto** | **Servidor Localhost** | **Melhoria** |
-|-------------|-------------------|------------------------|--------------|
-| **10 usuários** | 98% sucesso | 💯 100% sucesso | **+2%** |
-| **50 usuários** | 64% sucesso | 💯 100% sucesso | **+56%** |
-| **100 usuários** | 50% sucesso | 💯 100% sucesso | **+100%** |
-
-> 🎯 **Impacto**: Transformação de um sistema que rejeitava metade dos usuários em alta demanda para uma solução que atende 100% dos usuários com tempos de resposta excelentes.
-
 ## Como Usar
 
 ### 1. Iniciando a Aplicação
@@ -172,19 +148,6 @@ npm run test-k6-with-export  # Executar testes K6 + exportar resultados JSON
 npm run dash_k6              # Executar testes K6 com dashboard web
 npm run test:cypress         # Executar testes E2E Cypress (futuro)
 ```
-
-### **⚙️ Configurações Avançadas:**
-```bash
-# Alterar porta
-PORT=4000 npm start
-
-# Modo de produção
-NODE_ENV=production npm start
-
-# Debug logs
-DEBUG=true npm start
-```
-
 ### **📊 Dashboard Web K6:**
 ```bash
 # Executar testes com dashboard web interativo
@@ -314,6 +277,9 @@ C:\sistema-estudos\
 │   └── K6/
 │       ├── results/                                    # Resultados JSON dos testes (gerado)
 │       └── performance.test.js                         # Script de testes K6
+├── cypress/
+│   └── e2e/
+│       └── index.cy.js                                 # Testes E2E automatizados com Cypress
 ├── node_modules/                                       # Dependências do Node.js (gerado)
 ├── html-report.html                                    # Dashboard web K6 (gerado)
 ├── index.html                                          # Aplicação principal (SPA)
@@ -356,6 +322,7 @@ C:\sistema-estudos\
 
 ### **🧪 Testes e Automação:**
 - K6 para testes de performance
+- Cypress para testes E2E
 - Scripts de automação em JavaScript
 - Export de resultados em JSON para análise
 - Dashboard web interativo para visualização em tempo real
@@ -433,8 +400,9 @@ Este é um **projeto de portfólio profissional** que demonstra habilidades em:
 - **📱 Design Responsivo** - Interface adaptável para múltiplos dispositivos
 - **⚡ Otimização de Performance** - Identificação e solução de gargalos
 - **🧪 Testes Automatizados** - K6 para performance, metodologia de testes
+- O projeto inclui testes automatizados com Cypress, que validam operações como cadastro de matérias, inclusão de tópicos, alteração de dificuldade e exclusão de registros.
 - **🔄 Versionamento** - Git Flow e estratégias de branching
-- **📊 Análise de Dados** - Interpretação de métricas e resultados de testes
+- **📊 Análise de Dados** - Interpretação de métricas e resultados de testes utilizada para automatizar e validar os principais fluxos do sistema, garantindo a qualidade das funcionalidades implementadas.
 - **🔧 Resolução de Problemas** - Migração de infraestrutura por necessidade técnica
 - **📚 Documentação Técnica** - Especificações detalhadas e guias de uso
 
@@ -444,6 +412,8 @@ Este é um **projeto de portfólio profissional** que demonstra habilidades em:
 - ✅ **Infraestrutura otimizada** - Servidor Node.js para alta performance
 - ✅ **Documentação profissional** - Requisitos, US e critérios completos
 - ✅ **Testes automatizados** - Performance validada com K6
+- Os testes com Cypress simulam interações reais do usuário, como preenchimento de formulários, navegação e validação de mensagens na interface.
+- Os cenários cobrem casos de sucesso e manipulação de dados, aumentando a confiabilidade do sistema.
 - ✅ **Código limpo e organizado** - Boas práticas de desenvolvimento
 - ✅ **Responsividade total** - Funciona em desktop e mobile
 - ✅ **Análise comparativa** - Métricas antes/depois da otimização
