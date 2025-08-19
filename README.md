@@ -55,7 +55,7 @@ Este projeto possui documentação completa disponível no Wiki do repositório:
 - ✅ **[Critérios de Aceite](https://github.com/acnscoelho/portfolio-pessoal-sistemas-estudos/wiki/3.Critérios-de-Aceite)** - Critérios de validação para cada funcionalidade implementada
 - 📋 **[Requisitos Não Funcionais](https://github.com/acnscoelho/portfolio-pessoal-sistemas-estudos/wiki/4.Requisitos-Não-Funcionais)** - Especificação dos requisitos não funcionais
 
-> 💡 **Nota**: Esta documentação é referente análise de sistemas e demonstra o processo completo de levantamento de requisitos, análise e especificação de funcionalidades.
+> 💡 **Nota**: Esta documentação é referente à análise de sistemas e demonstra o processo completo de levantamento de requisitos, análise e especificação de funcionalidades.
 
 ## 📋 Documentação de Testes
 
@@ -389,31 +389,13 @@ npm run dash_k6
 - ✅ Backup pode ser armazenado onde você quiser
 - ✅ Arquivo JSON pode ser aberto em qualquer editor de texto
 
-## 🎯 Projeto de Portfólio
-
-Este é um **projeto de portfólio profissional** que demonstra habilidades em:
-
-- **📋 Análise de Requisitos** - Levantamento e especificação de necessidades funcionais
-- **🎯 Gestão de Produto** - Épicos, User Stories e Critérios de Aceite
-- **💻 Desenvolvimento Frontend** - HTML5, CSS3, JavaScript ES6+
-- **🚀 Desenvolvimento Backend** - Node.js, Express.js, servidor otimizado
-- **📱 Design Responsivo** - Interface adaptável para múltiplos dispositivos
-- **⚡ Otimização de Performance** - Identificação e solução de gargalos
-- **🧪 Testes Automatizados** - K6 para performance, metodologia de testes
-- O projeto inclui testes automatizados com Cypress, que validam operações como cadastro de matérias, inclusão de tópicos, alteração de dificuldade e exclusão de registros.
-- **🔄 Versionamento** - Git Flow e estratégias de branching
-- **📊 Análise de Dados** - Interpretação de métricas e resultados de testes utilizada para automatizar e validar os principais fluxos do sistema, garantindo a qualidade das funcionalidades implementadas.
-- **🔧 Resolução de Problemas** - Migração de infraestrutura por necessidade técnica
-- **📚 Documentação Técnica** - Especificações detalhadas e guias de uso
-
 ### 🚀 Características do Projeto
 
 - ✅ **Sistema completamente funcional** - Aplicação web real e utilizável
 - ✅ **Infraestrutura otimizada** - Servidor Node.js para alta performance
 - ✅ **Documentação profissional** - Requisitos, US e critérios completos
 - ✅ **Testes automatizados** - Performance validada com K6
-- Os testes com Cypress simulam interações reais do usuário, como preenchimento de formulários, navegação e validação de mensagens na interface.
-- Os cenários cobrem casos de sucesso e manipulação de dados, aumentando a confiabilidade do sistema.
+- ✅ **Testes automatizados** - Os testes com Cypress simulam interações reais do usuário, como preenchimento de formulários, navegação e validação de mensagens na interface.
 - ✅ **Código limpo e organizado** - Boas práticas de desenvolvimento
 - ✅ **Responsividade total** - Funciona em desktop e mobile
 - ✅ **Análise comparativa** - Métricas antes/depois da otimização
