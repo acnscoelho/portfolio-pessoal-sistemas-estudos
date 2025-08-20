@@ -17,7 +17,7 @@ jobs:
         run: npm start &
         
       - name: Executar os testes
-        run: npx cypress run &
+        run: npx cypress run 
         
       - name: Configurar o K6
         uses: grafana/setup-k6-action@v1
