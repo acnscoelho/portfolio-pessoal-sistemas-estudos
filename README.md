@@ -146,7 +146,7 @@ npm run dev                  # Iniciar servidor em modo desenvolvimento
 npm run test:k6              # Executar testes de performance K6
 npm run test-k6-with-export  # Executar testes K6 + exportar resultados JSON
 npm run dash_k6              # Executar testes K6 com dashboard web
-npm run test:cypress         # Executar testes E2E Cypress (futuro)
+npm run test:cypress         # Executar testes E2E Cypress
 ```
 ### **📊 Dashboard Web K6:**
 ```bash
